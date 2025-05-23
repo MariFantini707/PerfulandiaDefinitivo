@@ -4,6 +4,8 @@ import Operaciones.operaciones.modelo.Venta;
 import Operaciones.operaciones.repositorio.VentaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import Operaciones.operaciones.modelo.UsuarioDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +14,9 @@ import java.util.Optional;
 public class VentaServicio {
     @Autowired
     private VentaRepositorio ventaRepositorio;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<Venta> getAllVentas() {
         return ventaRepositorio.findAll();
@@ -41,5 +46,16 @@ public class VentaServicio {
     public void deleteVenta(int id) {
         ventaRepositorio.deleteById(id);
     }
+
+    //NUEVO METODO PARA VENTAS Y USUARIO -MF
+
+    public UsuarioDto obtenerUsuarioDeVenta(Integer idVenta) {
+        Venta venta = ventaRepositorio.findById(idVenta)
+            .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+
+        String url = "http://localhost:8081/usuario/" + venta.getIdUsuario(); 
+        return restTemplate.getForObject(url, UsuarioDto.class);
+    }
+
 
 }

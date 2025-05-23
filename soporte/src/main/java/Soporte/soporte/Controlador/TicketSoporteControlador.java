@@ -29,6 +29,7 @@ public class TicketSoporteControlador {
     }
 
     //este get conecta con el método aparte que escribí
+    //se puede usar con: http://localhost:8084/tickets/{id}/usuario para ver la información del cliente que solicitó el ticket
     @GetMapping("/{id}/usuario")
     public ResponseEntity<UsuarioDto> obtenerUsuarioDelTicket(@PathVariable Integer id) {
         UsuarioDto usuario = TicketSoporteServicio.obtenerUsuarioDelTicket(id);

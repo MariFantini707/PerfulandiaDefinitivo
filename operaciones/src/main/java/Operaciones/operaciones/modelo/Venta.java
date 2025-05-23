@@ -32,10 +32,6 @@ public class Venta {
     @JoinColumn(name = "idCarrito", nullable = false)
     private Carrito carrito;
 
-    //@ManyToOne 
-    //@JoinColumn(name = "idUsuario", nullable = false)
-    //UsuarioDto usuario;   
-    // Y como no sé:
     @Column(name="idUsuario",nullable = false)
     private Integer idUsuario;
 }
