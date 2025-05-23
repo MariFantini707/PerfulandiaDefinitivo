@@ -26,9 +26,13 @@ public class ResenaServicio {
     }
 
     public Resena updateResena(Integer id, Resena resena) {
-        if (resenaRepositorio.existsById(id)) {
-            resena.setIdResena(id);
-            return resenaRepositorio.save(resena);
+        Optional<Resena> resenaTemp = resenaRepositorio.findById(id);
+        if (resenaTemp.isPresent()) {
+            Resena resenaActualizar = resenaTemp.get();
+            resenaActualizar.setComentarioResena(resena.getComentarioResena());
+            resenaActualizar.setPuntuacionResena(resena.getPuntuacionResena());
+            resenaActualizar.setIdUsuario(resena.getIdUsuario());
+            return resenaRepositorio.save(resenaActualizar);
         }
         throw new RuntimeException("No se encontró la reseña");
     }

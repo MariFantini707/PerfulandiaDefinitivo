@@ -1,62 +1,31 @@
 package Administracion.administracion.Modelo;
 
-import javax.management.relation.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
-@Table(name = "Usuario")
-
-
+@Data
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdUsuario;
+    private Integer idUsuario;
 
+    @Column(name="nombreUsuario",nullable=false, unique = false)
+    private String nombreUsuario;
 
-    @Column(nullable=false, unique = false)
-    private String NombreUsuario;
+    @Column(name="rutUsuario",unique=true, nullable=false)
+    private String rutUsuario;
 
-    @Column(unique=true, nullable=false)
-    private String RutUsuario;
+    @Column(name="correoUsuario",nullable=false, unique = false)
+    private String correoUsuario;
 
-    @Column(nullable=false, unique = false)
-    private String CorreoUsuario;
-
-    @ManyToOne
-    @JoinColumn(name = "IdRol", nullable = false)
-    private Role RolUsuario;
-
-    //esto se tiene que borrar, no sirve aqui -MARIAFANTINI
-    public Object getRol() {
-        throw new UnsupportedOperationException("Unimplemented method 'getRol'");
-    }
-
-    public void setRol(Object rol) {
-        throw new UnsupportedOperationException("Unimplemented method 'setRol'");
-    }
-
-    public Object getCorreo_usuario() {
-        throw new UnsupportedOperationException("Unimplemented method 'getCorreo_usuario'");
-    }
-
-    public void setCorreo_usuario(Object correo_usuario) {
-        throw new UnsupportedOperationException("Unimplemented method 'setCorreo_usuario'");
-    }
-
-    public Object getNombre_usuario() {
-        throw new UnsupportedOperationException("Unimplemented method 'getNombre_usuario'");
-    }
-
-    public void setNombre_usuario(Object nombre_usuario) {
-        throw new UnsupportedOperationException("Unimplemented method 'setNombre_usuario'");
-    }
-
+    @Column(name="rolUsuario",nullable=false, unique = false)
+    private String rolUsuario;
 
 }

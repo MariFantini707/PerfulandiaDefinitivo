@@ -26,9 +26,14 @@ public class VentaServicio {
     }
 
     public Venta updateVenta(Integer id, Venta venta) {
-        if (ventaRepositorio.existsById(id)) {
-            venta.setIdVenta(id);
-            return ventaRepositorio.save(venta);
+        Optional<Venta> ventaTemp = ventaRepositorio.findById(id);
+        if (ventaTemp.isPresent()) {
+            Venta ventaActualizar = ventaTemp.get();
+            ventaActualizar.setFechaVenta(venta.getFechaVenta());
+            ventaActualizar.setTotalVenta(venta.getTotalVenta());
+            ventaActualizar.setCarrito(venta.getCarrito());
+            ventaActualizar.setIdUsuario(venta.getIdUsuario());
+            return ventaRepositorio.save(ventaActualizar);
         }
         throw new RuntimeException("No se encontró la venta");
     }
@@ -36,4 +41,5 @@ public class VentaServicio {
     public void deleteVenta(int id) {
         ventaRepositorio.deleteById(id);
     }
+
 }

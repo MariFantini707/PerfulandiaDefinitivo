@@ -9,37 +9,40 @@ import org.springframework.stereotype.Service;
 import Administracion.administracion.Modelo.Usuario;
 import Administracion.administracion.Repositorio.UsuarioRepositorio;
 @Service
-
 public class UsuarioServicio {
     @Autowired
-    private UsuarioRepositorio UsuarioRepositorio;
+    private UsuarioRepositorio usuarioRepositorio;
 
 
-    public List<Usuario> obtenerTodos() {
-        return UsuarioRepositorio.findAll();
+    public List<Usuario> findAll() {
+        return usuarioRepositorio.findAll();
     }
 
-    public Optional<Usuario> obtenerPorId(Integer id) {
-        return UsuarioRepositorio.findById(id);
+    public Optional<Usuario> findById(Integer id) {
+        return usuarioRepositorio.findById(id);
     }
 
-    public Usuario guardar(Usuario usuario) {
-        return UsuarioRepositorio.save(usuario);
+    public Usuario save(Usuario usuario) {
+        return usuarioRepositorio.save(usuario);
     }
 
     public Optional<Usuario> actualizar(Integer id, Usuario datos) {
-        return UsuarioRepositorio.findById(id).map(p -> {
-            p.setNombre_usuario(datos.getNombre_usuario());
-            p.setCorreo_usuario(datos.getCorreo_usuario());
-            p.setCorreo_usuario(datos.getCorreo_usuario());
-            p.setRol(datos.getRol());
-            return UsuarioRepositorio.save(p);
-        });
+        Optional<Usuario> p = usuarioRepositorio.findById(id);
+        if (p.isPresent()) {
+            Usuario usuario = p.get();
+            usuario.setNombreUsuario(datos.getNombreUsuario());
+            usuario.setRutUsuario(datos.getRutUsuario());
+            usuario.setCorreoUsuario(datos.getCorreoUsuario());
+            usuario.setRolUsuario(datos.getRolUsuario());
+            usuarioRepositorio.save(usuario);
+            return Optional.of(usuario);
+        }
+        return Optional.empty();
     }
 
-    public boolean eliminar(Integer id) {
-        if (UsuarioRepositorio.existsById(id)) {
-            UsuarioRepositorio.deleteById(id);
+    public boolean delete(Integer id) {
+        if (usuarioRepositorio.existsById(id)) {
+            usuarioRepositorio.deleteById(id);
             return true;
         }
         return false;
