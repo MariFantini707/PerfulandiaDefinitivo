@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Administracion.administracion.Model.Usuario;
+import Administracion.administracion.Modelo.Usuario;
 import Administracion.administracion.Servicio.UsuarioServicio;
 
 @RestController

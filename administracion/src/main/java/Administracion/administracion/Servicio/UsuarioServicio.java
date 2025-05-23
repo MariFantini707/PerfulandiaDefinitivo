@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import Administracion.administracion.Model.Usuario;
+
+import Administracion.administracion.Modelo.Usuario;
 import Administracion.administracion.Repositorio.UsuarioRepositorio;
 @Service
 

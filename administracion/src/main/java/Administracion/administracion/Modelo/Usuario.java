@@ -1,4 +1,4 @@
-package Administracion.administracion.Model;
+package Administracion.administracion.Modelo;
 
 import javax.management.relation.Role;
 import jakarta.persistence.Column;
