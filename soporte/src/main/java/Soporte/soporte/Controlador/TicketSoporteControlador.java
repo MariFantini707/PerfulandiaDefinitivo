@@ -1,6 +1,7 @@
 package Soporte.soporte.Controlador;
 
 import Soporte.soporte.Modelo.TicketSoporte;
+import Soporte.soporte.Modelo.UsuarioDto;
 import Soporte.soporte.Servicio.TicketSoporteServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,14 @@ public class TicketSoporteControlador {
         Optional<TicketSoporte> ticketSoporte = TicketSoporteServicio.getTicketSoporteById(id);
         return ticketSoporte.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    //este get conecta con el método aparte que escribí
+    //se puede usar con: http://localhost:8084/tickets/{id}/usuario para ver la información del cliente que solicitó el ticket
+    @GetMapping("/{id}/usuario")
+    public ResponseEntity<UsuarioDto> obtenerUsuarioDelTicket(@PathVariable Integer id) {
+        UsuarioDto usuario = TicketSoporteServicio.obtenerUsuarioDelTicket(id);
+        return ResponseEntity.ok(usuario);
+}
 
     @PostMapping
     public ResponseEntity<TicketSoporte> createTicketSoporte(@RequestBody TicketSoporte ticketSoporte) {

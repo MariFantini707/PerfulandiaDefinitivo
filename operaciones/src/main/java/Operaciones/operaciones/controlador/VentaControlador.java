@@ -1,5 +1,6 @@
 package Operaciones.operaciones.controlador;
 
+import Operaciones.operaciones.modelo.UsuarioDto;
 import Operaciones.operaciones.modelo.Venta;
 import Operaciones.operaciones.servicio.VentaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class VentaControlador {
         return venta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
     @PostMapping
     public ResponseEntity<Venta> createVenta(@RequestBody Venta venta) {
         return ResponseEntity.ok(ventaServicio.createVenta(venta));
@@ -40,5 +42,16 @@ public class VentaControlador {
     public ResponseEntity<?> deleteVenta(@PathVariable Integer id) {
         ventaServicio.deleteVenta(id);
         return ResponseEntity.ok().build();
+    }
+
+    // este metodo ayuda a obtener el usuario de una venta
+    @GetMapping("/{id}/usuario")
+    public ResponseEntity<UsuarioDto> obtenerUsuarioDeVenta(@PathVariable Integer id) {
+        try {
+            UsuarioDto usuario = ventaServicio.obtenerUsuarioDeVenta(id);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
