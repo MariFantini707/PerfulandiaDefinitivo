@@ -19,29 +19,29 @@ import Administracion.administracion.Servicio.UsuarioServicio;
 @RequestMapping("/usuario")
 public class UsuarioControlador {
     @Autowired
-    private UsuarioServicio UsuiarioServicio;
+    private UsuarioServicio UsuarioServicio;
 
     @GetMapping
     public List<Usuario> listarusuarioes() {
-        return UsuiarioServicio.obtenerTodos();
+        return UsuarioServicio.obtenerTodos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerusuario(@PathVariable Integer id) {
-        return UsuiarioServicio.obtenerPorId(id)
+        return UsuarioServicio.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Usuario crearusuario(@RequestBody Usuario usuario) {
-        return UsuiarioServicio.guardar(usuario);
+        return UsuarioServicio.guardar(usuario);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarusuario(@PathVariable Integer id, @RequestBody Usuario datos) {
         try {
-            Optional<Usuario> usuarioActualizado = UsuiarioServicio.actualizar(id, datos);
+            Optional<Usuario> usuarioActualizado = UsuarioServicio.actualizar(id, datos);
         
             if (usuarioActualizado.isPresent()) {
                 return ResponseEntity.ok(usuarioActualizado.get());
@@ -57,7 +57,7 @@ public class UsuarioControlador {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarusuario(@PathVariable Integer id) {
-        if (UsuiarioServicio.eliminar(id)) {
+        if (UsuarioServicio.eliminar(id)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

@@ -1,5 +1,5 @@
 package Soporte.soporte.Controlador;
 
-public class TicketSoporte {
+public class TicketSoporteControlador {
 
 }

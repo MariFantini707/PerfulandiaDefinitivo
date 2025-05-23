@@ -1,5 +1,5 @@
 package Soporte.soporte.Servicio;
 
-public class TicketUsuario {
+public class TicketSoporteSevicio {
 
 }

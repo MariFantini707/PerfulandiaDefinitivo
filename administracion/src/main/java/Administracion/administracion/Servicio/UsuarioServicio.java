@@ -29,9 +29,10 @@ public class UsuarioServicio {
 
     public Optional<Usuario> actualizar(Integer id, Usuario datos) {
         return UsuarioRepositorio.findById(id).map(p -> {
-            p.setNombre_usuario(datos.getNombre_usuario());
-            p.setCorreo_usuario(datos.getCorreo_usuario());
-            p.setCorreo_usuario(datos.getCorreo_usuario());
+            p.setidUsuario(datos.getidUsuario());
+            p.setnombreUsuario(datos.getnombreUsuario());
+            p.setrutUsuario(datos.getrutUsuario());
+            p.setcorreoUsuario(datos.getcorreoUsuario());
             p.setRol(datos.getRol());
             return UsuarioRepositorio.save(p);
         });
