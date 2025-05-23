@@ -37,4 +37,8 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Proveedor proveedor;
+
+    //@ManyToOne pero creo que no se usa cuando es una entidad de otra api 
+    //@JoinColumn(nullable = false, name = idUsuario)
+    //private Integer idUsuario;
 }
