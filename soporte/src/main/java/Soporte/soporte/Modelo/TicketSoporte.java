@@ -3,68 +3,40 @@ package Soporte.soporte.Modelo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.ManyToOne;
-//import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "ticket_soporte")
 public class TicketSoporte {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_ticket")
     private Integer idTicket;
 
-    @Column(nullable = false)
-    private Integer descripcionTicket;
-   
-    @Column(nullable = false)
-    private Integer estadoTicket;
+    @Column(name = "descripcion_ticket", nullable = false, length = 500)
+    private String descripcionTicket;
 
-    @Column(nullable = false)
-    private Date fechaInicioTicket;
-   
-    @Column(nullable = true)
-    private Date fechaTerminoTicket;
+    @Column(name = "estado_ticket", nullable = false, length = 50)
+    private String estadoTicket;
 
-    @Column(nullable = false)
-    private Integer respuestaTicket;
+    @Column(name = "fecha_inicio_ticket", nullable = false)
+    private LocalDate fechaInicioTicket;
 
+    @Column(name = "fecha_termino_ticket")
+    private LocalDate fechaTerminoTicket;
 
-    @Column(nullable = false)
+    @Column(name = "respuesta_ticket", nullable = false, length = 500)
+    private String respuestaTicket;
+
+    @Column(name = "id_usuario", nullable = false)
     @JsonProperty("idUsuario")
     private Integer idUsuario;
-
-
-    //esto no debe estar aqui, hay que modificarlo 
-
-    public static List<TicketSoporte> getAllTicketSoportes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllTicketSoportes'");
-    }
-
-
-    public static Optional<TicketSoporte> getTicketSoporteById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTicketSoporteById'");
-    }
-
-
-    public Object createTicketSoporte(TicketSoporte ticketSoporte) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createTicketSoporte'");
-    }
-    
-
 }

@@ -44,6 +44,7 @@ public class Pedido {
     @JsonProperty("idUsuario")
     private Integer idUsuario;
 
+    @Column(nullable = false)
     @JsonProperty("idProducto")
     private Integer idProducto;
     // @JsonProperty("idUsuario") es para que el nombre de la propiedad en el JSON sea "idUsuario"
