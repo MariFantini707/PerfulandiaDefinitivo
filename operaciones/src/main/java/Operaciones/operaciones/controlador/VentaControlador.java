@@ -27,6 +27,7 @@ public class VentaControlador {
         return venta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
     @PostMapping
     public ResponseEntity<Venta> createVenta(@RequestBody Venta venta) {
         return ResponseEntity.ok(ventaServicio.createVenta(venta));
