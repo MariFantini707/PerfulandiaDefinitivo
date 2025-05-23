@@ -13,13 +13,10 @@ import lombok.NoArgsConstructor;
 public class ProductoDto {
     @JsonProperty("idProducto")
     private Integer idProducto;
-
     @JsonProperty("nombreProducto")
     private String nombreProducto;
-
     @JsonProperty("precioProducto")
     private Integer precioProducto;
-
     @JsonProperty("categoriaProducto")
     private String categoriaProducto;
 }
