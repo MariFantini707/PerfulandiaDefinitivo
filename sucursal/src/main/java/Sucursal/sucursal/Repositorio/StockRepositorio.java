@@ -1,5 +1,6 @@
 package Sucursal.sucursal.Repositorio;
 
-public class StockRepositorio {
+import org.springframework.data.jpa.repository.JpaRepository;
+import Sucursal.sucursal.Modelo.Stock;
 
-}
+public interface StockRepositorio extends JpaRepository<Stock, Integer> {}

@@ -1,5 +1,6 @@
 package Sucursal.sucursal.Repositorio;
 
-public class ProductoRepositorio {
+import org.springframework.data.jpa.repository.JpaRepository;
+import Sucursal.sucursal.Modelo.Producto;
 
-}
+public interface ProductoRepositorio extends JpaRepository<Producto, Integer> {}
