@@ -24,13 +24,11 @@ public class PedidoControlador {
     @Autowired
     private PedidoServicio pedidoServicio;
 
-    // Listar todos los pedidos
     @GetMapping
     public List<Pedido> listarPedidos() {
         return pedidoServicio.listarPedidos();
     }
 
-    // Obtener un pedido por ID
     @GetMapping("/{id}")
     public ResponseEntity<Pedido> obtenerPedido(@PathVariable Integer id) {
         return pedidoServicio.obtenerPedidoPorId(id)
@@ -38,13 +36,11 @@ public class PedidoControlador {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Crear nuevo pedido
     @PostMapping
     public Pedido crearPedido(@RequestBody Pedido pedido) {
         return pedidoServicio.guardarPedido(pedido);
     }
 
-    // Actualizar pedido
     @PutMapping("/{id}")
     public ResponseEntity<Pedido> actualizarPedido(@PathVariable Integer id, @RequestBody Pedido pedido) {
         if (pedidoServicio.obtenerPedidoPorId(id).isPresent()) {
@@ -56,7 +52,6 @@ public class PedidoControlador {
         }
     }
 
-    // Eliminar pedido
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarPedido(@PathVariable Integer id) {
         if (pedidoServicio.obtenerPedidoPorId(id).isPresent()) {

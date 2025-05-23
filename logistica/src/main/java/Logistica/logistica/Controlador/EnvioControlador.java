@@ -23,13 +23,11 @@ public class EnvioControlador {
     @Autowired
     private EnvioServicio envioServicio;
 
-    // Obtener todos los envíos
     @GetMapping
     public List<Envio> listarEnvios() {
         return envioServicio.listarEnvios();
     }
 
-    // Obtener un envío por ID
     @GetMapping("/{id}")
     public ResponseEntity<Envio> obtenerEnvio(@PathVariable Integer id) {
         return envioServicio.obtenerEnvioPorId(id)
@@ -37,13 +35,11 @@ public class EnvioControlador {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Crear nuevo envío
     @PostMapping
     public Envio crearEnvio(@RequestBody Envio envio) {
         return envioServicio.guardarEnvio(envio);
     }
 
-    // Actualizar envío
     @PutMapping("/{id}")
     public ResponseEntity<Envio> actualizarEnvio(@PathVariable Integer id, @RequestBody Envio envio) {
         if (envioServicio.obtenerEnvioPorId(id).isPresent()) {
@@ -55,7 +51,6 @@ public class EnvioControlador {
         }
     }
 
-    // Eliminar envío
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarEnvio(@PathVariable Integer id) {
         if (envioServicio.obtenerEnvioPorId(id).isPresent()) {

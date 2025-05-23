@@ -23,13 +23,11 @@ public class ProveedorControlador {
     @Autowired
     private ProveedorServicio proveedorServicio;
 
-    // Obtener todos los proveedores
     @GetMapping
     public List<Proveedor> listarProveedores() {
         return proveedorServicio.listarProveedores();
     }
 
-    // Obtener un proveedor por ID
     @GetMapping("/{id}")
     public ResponseEntity<Proveedor> obtenerProveedor(@PathVariable Integer id) {
         return proveedorServicio.obtenerProveedorPorId(id)
@@ -37,13 +35,11 @@ public class ProveedorControlador {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Crear nuevo proveedor
     @PostMapping
     public Proveedor crearProveedor(@RequestBody Proveedor proveedor) {
         return proveedorServicio.guardarProveedor(proveedor);
     }
 
-    // Actualizar proveedor
     @PutMapping("/{id}")
     public ResponseEntity<Proveedor> actualizarProveedor(@PathVariable Integer id, @RequestBody Proveedor proveedor) {
         if (proveedorServicio.obtenerProveedorPorId(id).isPresent()) {
@@ -56,7 +52,6 @@ public class ProveedorControlador {
     }
 
 
-    // Eliminar proveedor
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProveedor(@PathVariable Integer id) {
         if (proveedorServicio.obtenerProveedorPorId(id).isPresent()) {
