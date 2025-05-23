@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import Logistica.logistica.Modelo.Pedido;
+import Logistica.logistica.Modelo.UsuarioDto;
+//import Logistica.logistica.Modelo.UsuarioDto;
 import Logistica.logistica.Repositorio.PedidoRepositorio;
 
 @Service
@@ -14,6 +17,7 @@ public class PedidoServicio {
     
     @Autowired
     private PedidoRepositorio pedidoRepositorio;
+    private final RestTemplate restTemplate; //parte ede prueba1
 
     // Listar todos los pedidos
     public List<Pedido> listarPedidos() {
@@ -41,4 +45,23 @@ public class PedidoServicio {
     }
 
     //estoy tratando de evitar en lo posible el idUsuario, al final trararé de hacer la conexion entre apis
+
+    //prueba1
+    public PedidoServicio(PedidoRepositorio pedidoRepositorio, RestTemplate restTemplate) {
+        this.pedidoRepositorio = pedidoRepositorio;
+        this.restTemplate = restTemplate;
+    }
+
+    public UsuarioDto obtenerUsuarioDePedido(Integer idPedido) {
+        Pedido pedido = pedidoRepositorio.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+
+        // Consulta externa usando RestTemplate
+        String url = "http://localhost:8081/usuario" + pedido.getIdUsuario();
+        UsuarioDto usuario = restTemplate.getForObject(url, UsuarioDto.class);
+
+        return usuario;
+    }
+
+
 }
