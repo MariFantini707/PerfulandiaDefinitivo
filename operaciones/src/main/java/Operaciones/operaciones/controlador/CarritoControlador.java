@@ -34,8 +34,8 @@ public class CarritoControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Carrito> getCarritoById(@RequestParam Integer id) {
-        Carrito carrito = carritoServicio.getCarritoById(id);
+    public ResponseEntity<Optional<Carrito>> getCarritoById(@RequestParam Integer id) {
+        Optional<Carrito> carrito = carritoServicio.getCarritosById(id);
         if (carrito != null) {
             return ResponseEntity.ok(carrito);
         } else {
@@ -50,18 +50,18 @@ public class CarritoControlador {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCarrito(@PathVariable Integer id, @RequestBody Carrito carrito) {
-        Carrito carritoActualizar = carritoServicio.updateCarrito(id, carrito);
+    public ResponseEntity<String> updateCarritos(@PathVariable Integer id, @RequestBody Carrito carrito) {
+        Carrito carritoActualizar = carritoServicio.updateCarritos(id, carrito);
         return ResponseEntity.ok().body(carritoActualizar.toString());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVentas(@PathVariable Integer id) {
-        Optional<Carrito> carrito = carritoServicio.getCarritoById(id);
+        Optional<Carrito> carrito = carritoServicio.getCarritosById(id);
         if (carrito.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        carritoServicio.deleteCarrito(id);
+        carritoServicio.deleteCarritos(id);
         return ResponseEntity.ok().build();
     }
     

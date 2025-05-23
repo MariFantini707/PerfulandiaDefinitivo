@@ -3,27 +3,27 @@ package Operaciones.operaciones.modelo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Table;
 //import jakarta.persistence.JoinColumn;
 //import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "resena")
 public class Resena {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idResena;
 
-    @Column(nullable = true)
+    @Column(name="comentarioResena",nullable = true)
     private String comentarioResena;
    
-    @Column(nullable = false)
+    @Column(name="puntuacionResena",nullable = false)
     private Integer puntuacionResena;
     // Si es que supiera como se hace la relacion con el usuario:
     //@ManyToOne

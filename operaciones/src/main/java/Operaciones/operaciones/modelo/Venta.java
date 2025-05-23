@@ -1,33 +1,33 @@
 package Operaciones.operaciones.modelo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 //import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "venta")
 public class Venta {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idVenta;
 
-    @Column(nullable = true)
+    @Column(name="fechaVenta",nullable = true)
     private Date fechaVenta;
    
-    @Column(nullable = false)
+    @Column(name="totalVenta",nullable = false)
     private Integer totalVenta;
     
     @OneToOne
