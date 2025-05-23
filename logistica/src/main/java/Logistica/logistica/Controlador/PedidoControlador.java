@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Logistica.logistica.Modelo.Pedido;
+import Logistica.logistica.Modelo.ProductoDto;
 import Logistica.logistica.Servicio.PedidoServicio;
 
 @RestController
@@ -62,6 +63,17 @@ public class PedidoControlador {
             pedidoServicio.eliminarPedido(id);
             return ResponseEntity.noContent().build();
         } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @GetMapping("/{id}/producto")
+    public ResponseEntity<ProductoDto> obtenerProductoDePedido(@PathVariable Integer id) {
+        try {
+            ProductoDto producto = pedidoServicio.obtenerProductoDePedido(id);
+            return ResponseEntity.ok(producto);
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }

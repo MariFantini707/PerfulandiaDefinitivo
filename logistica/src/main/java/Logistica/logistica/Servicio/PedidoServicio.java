@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import Logistica.logistica.Modelo.Pedido;
+import Logistica.logistica.Modelo.ProductoDto;
 import Logistica.logistica.Modelo.UsuarioDto;
-//import Logistica.logistica.Modelo.UsuarioDto;
 import Logistica.logistica.Repositorio.PedidoRepositorio;
 
 @Service
@@ -57,10 +57,18 @@ public class PedidoServicio {
                 .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
 
         // Consulta externa usando RestTemplate
-        String url = "http://localhost:8081/usuario" + pedido.getIdUsuario();
+        String url = "http://localhost:8081/usuario/" + pedido.getIdUsuario();
         UsuarioDto usuario = restTemplate.getForObject(url, UsuarioDto.class);
 
         return usuario;
+    }
+
+    public ProductoDto obtenerProductoDePedido(Integer idPedido) {
+        Pedido pedido = pedidoRepositorio.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+
+        String url = "http://localhost:8085/productos/" + pedido.getIdProducto();
+        return restTemplate.getForObject(url, ProductoDto.class);
     }
 
 

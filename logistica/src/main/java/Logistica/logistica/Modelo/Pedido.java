@@ -40,10 +40,12 @@ public class Pedido {
     @JoinColumn(nullable = false)
     private Proveedor proveedor;
 
-    //@ManyToOne pero creo que no se usa cuando es una entidad de otra api 
     @Column(nullable = false)
     @JsonProperty("idUsuario")
     private Integer idUsuario;
+
+    @JsonProperty("idProducto")
+    private Integer idProducto;
     // @JsonProperty("idUsuario") es para que el nombre de la propiedad en el JSON sea "idUsuario"
     //comentario Maria: Para el Usuario que conecta con Pedido (gerente) opté por usar la misma lógica del JSON 
 }
