@@ -2,6 +2,8 @@ package Sucursal.sucursal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class SucursalApplication {
@@ -9,5 +11,11 @@ public class SucursalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SucursalApplication.class, args);
 	}
+
+	@Bean
+		public RestTemplate restTemplate() {
+			return new RestTemplate();
+		}
+
 
 }
