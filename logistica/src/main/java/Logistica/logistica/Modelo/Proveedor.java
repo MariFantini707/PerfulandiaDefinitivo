@@ -29,3 +29,5 @@ public class Proveedor {
     @Column(length = 150, nullable = false)
     private String direccionProveedor;
 }
+
+//el localhost es: http://localhost:8082/proveedores
