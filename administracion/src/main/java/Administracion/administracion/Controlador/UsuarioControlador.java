@@ -16,7 +16,7 @@ import Administracion.administracion.Model.Usuario;
 import Administracion.administracion.Servicio.UsuarioServicio;
 
 @RestController
-@RequestMapping("/api/administracion/usuarios")
+@RequestMapping("/administracion/usuarios")
 public class UsuarioControlador {
     @Autowired
     private UsuarioServicio UsuiarioServicio;

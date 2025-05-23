@@ -33,5 +33,29 @@ public class Usuario {
     @JoinColumn(name = "IdRol", nullable = false)
     private Role RolUsuario;
 
+    public Object getRol() {
+        throw new UnsupportedOperationException("Unimplemented method 'getRol'");
+    }
+
+    public void setRol(Object rol) {
+        throw new UnsupportedOperationException("Unimplemented method 'setRol'");
+    }
+
+    public Object getCorreo_usuario() {
+        throw new UnsupportedOperationException("Unimplemented method 'getCorreo_usuario'");
+    }
+
+    public void setCorreo_usuario(Object correo_usuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'setCorreo_usuario'");
+    }
+
+    public Object getNombre_usuario() {
+        throw new UnsupportedOperationException("Unimplemented method 'getNombre_usuario'");
+    }
+
+    public void setNombre_usuario(Object nombre_usuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'setNombre_usuario'");
+    }
+
 
 }
