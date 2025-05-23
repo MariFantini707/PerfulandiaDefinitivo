@@ -33,6 +33,7 @@ public class Usuario {
     @JoinColumn(name = "IdRol", nullable = false)
     private Role RolUsuario;
 
+    //esto se tiene que borrar, no sirve aqui -MARIAFANTINI
     public Object getRol() {
         throw new UnsupportedOperationException("Unimplemented method 'getRol'");
     }
