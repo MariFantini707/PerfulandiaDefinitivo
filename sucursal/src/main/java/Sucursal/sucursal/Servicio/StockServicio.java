@@ -28,7 +28,16 @@ public class StockServicio {
         Optional<Stock> stockTemp = stockRepositorio.findById(id);
         if (stockTemp.isPresent()) {
             Stock stockActualizar = stockTemp.get();
-            // Actualiza los campos necesarios aquí
+            return stockRepositorio.save(stockActualizar);
+        }
+        throw new RuntimeException("No se encontró el stock");
+    }
+
+    public Stock aumentarStock(Integer id, Integer cantidad) {
+        Optional<Stock> stockTemp = stockRepositorio.findById(id);
+        if (stockTemp.isPresent()) {
+            Stock stockActualizar = stockTemp.get();
+            stockActualizar.setCantidad(stockActualizar.getCantidad() + cantidad);
             return stockRepositorio.save(stockActualizar);
         }
         throw new RuntimeException("No se encontró el stock");
