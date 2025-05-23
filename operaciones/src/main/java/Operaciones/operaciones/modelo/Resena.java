@@ -29,8 +29,8 @@ public class Resena {
     //@ManyToOne
     //@JoinColumn(name = "idUsuario", nullable = false)
     // Y como no sé:
-    @Column(nullable = false)
-    @JsonProperty("idUsuario")
+    @Column(name="idUsuario",nullable = false)
+    //@JsonProperty("idUsuario")
     // @JsonProperty("idUsuario") es para que el nombre de la propiedad en el JSON sea "idUsuario"
     private Integer idUsuario;
 }

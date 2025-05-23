@@ -1,6 +1,8 @@
 package Operaciones.operaciones.modelo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,14 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class UsuarioDto {
-    @JsonProperty("id")
+    @Column(name="id")
     private Integer id;
-    @JsonProperty("nombreUsuario")
+    @Column(name="nombreUsuario")
     private String nombreUsuario;
-    @JsonProperty("rutUsuario")
+    @Column(name="rutUsuario")
     private String rutUsuario;
-    @JsonProperty("correoUsuario")
+    @Column(name="correoUsuario")
     private String correoUsuario;
-    @JsonProperty("rolUsuario")
+    @Column(name="rolUsuario")
     private String rolUsuario;
 }

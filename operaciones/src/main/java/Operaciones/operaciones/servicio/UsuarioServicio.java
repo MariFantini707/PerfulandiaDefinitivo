@@ -16,11 +16,11 @@ public class UsuarioServicio {
         this.restTemplate = restTemplate;
     }
 
-    public UsuarioDto obtenerUsuarioPorId(Integer idUsuario) {
+    public UsuarioDto getById(Integer idUsuario) {
         String url = usuarioUrl + "/" + idUsuario;
         return restTemplate.getForObject(url, UsuarioDto.class);
     }
-    public void actualizarProducto(UsuarioDto usuarioDto) {
+    public void update(UsuarioDto usuarioDto) {
         String url = usuarioUrl + "/" + usuarioDto.getId();
         restTemplate.put(url, usuarioDto);
     }

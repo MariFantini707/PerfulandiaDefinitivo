@@ -1,5 +1,6 @@
 package Operaciones.operaciones.servicio;
 
+import Operaciones.operaciones.modelo.UsuarioDto;
 import Operaciones.operaciones.modelo.Venta;
 import Operaciones.operaciones.repositorio.VentaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
