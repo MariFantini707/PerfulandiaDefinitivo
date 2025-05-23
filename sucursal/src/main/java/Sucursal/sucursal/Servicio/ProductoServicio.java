@@ -31,6 +31,9 @@ public class ProductoServicio {
             productoActualizar.setNombreProducto(producto.getNombreProducto());
             productoActualizar.setPrecioProducto(producto.getPrecioProducto());
             productoActualizar.setCategoriaProducto(producto.getCategoriaProducto());
+            productoActualizar.setSucursal(producto.getSucursal());
+            productoActualizar.setIdCarrito(producto.getIdCarrito());
+            productoActualizar.setStock(producto.getStock());
             return productoRepositorio.save(productoActualizar);
         }
         throw new RuntimeException("No se encontró el producto");
