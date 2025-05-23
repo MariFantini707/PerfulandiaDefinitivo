@@ -1,5 +1,46 @@
 package Soporte.soporte.Controlador;
 
+import Soporte.soporte.Modelo.TicketSoporte;
+import Soporte.soporte.Servicio.TicketSoporteServicio;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/tickets")
 public class TicketSoporteControlador {
+    @Autowired
+    private TicketSoporteServicio TicketSoporteServicio;
+
+    @GetMapping
+    public List<TicketSoporte> getTicketSoportes() {
+        return TicketSoporteServicio.getAllTicketSoportes();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TicketSoporte> getTicketSoporteById(@PathVariable Integer id) {
+        Optional<TicketSoporte> ticketSoporte = TicketSoporteServicio.getTicketSoporteById(id);
+        return ticketSoporte.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<TicketSoporte> createTicketSoporte(@RequestBody TicketSoporte ticketSoporte) {
+        return ResponseEntity.ok(TicketSoporteServicio.createTicketSoporte(ticketSoporte));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TicketSoporte> updateTicketSoporte(@PathVariable Integer id, @RequestBody TicketSoporte ticketSoporte) {
+        return ResponseEntity.ok(TicketSoporteServicio.updateTicketSoporte(id, ticketSoporte));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTicketSoporte(@PathVariable Integer id) {
+        TicketSoporteServicio.deleteTicketSoporte(id);
+        return ResponseEntity.ok().build();
+    }
 
 }

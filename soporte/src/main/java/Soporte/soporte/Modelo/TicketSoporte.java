@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
-
+import java.util.List;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -44,6 +45,24 @@ public class TicketSoporte {
     @Column(nullable = false)
     @JsonProperty("idUsuario")
     private Integer idUsuario;
+
+
+    public static List<TicketSoporte> getAllTicketSoportes() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllTicketSoportes'");
+    }
+
+
+    public static Optional<TicketSoporte> getTicketSoporteById(Integer id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTicketSoporteById'");
+    }
+
+
+    public Object createTicketSoporte(TicketSoporte ticketSoporte) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createTicketSoporte'");
+    }
     
 
 }

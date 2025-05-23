@@ -12,12 +12,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Usuario")
-
-
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdUsuario;
+    private Integer idUsuario;
 
 
     @Column(nullable=false, unique = false)
@@ -33,7 +31,38 @@ public class Usuario {
     @JoinColumn(name = "IdRol", nullable = false)
     private Role RolUsuario;
 
-    //esto se tiene que borrar, no sirve aqui -MARIAFANTINI
+    public Object getidUsuario() {
+        throw new UnsupportedOperationException("Unimplemented method 'getidUsuario'");
+    }
+
+    public void setidUsuario(Object getidUsuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'setidUsuario'");
+    }
+
+    public Object getnombreUsuario() {
+        throw new UnsupportedOperationException("Unimplemented method 'getnombreUsuario'");
+    }
+
+    public void setnombreUsuario(Object getnombreUsuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'setnombreUsuario'");
+    }
+
+    public Object getrutUsuario() {
+        throw new UnsupportedOperationException("Unimplemented method 'getrutUsuario'");
+    }
+
+    public void setrutUsuario(Object getrutUsuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'setrutUsuario'");
+    }
+
+    public Object getcorreoUsuario() {
+        throw new UnsupportedOperationException("Unimplemented method 'getcorreoUsuario'");
+    }
+
+    public void setcorreoUsuario(Object getcorreoUsuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'setcorreoUsuario'");
+    }
+
     public Object getRol() {
         throw new UnsupportedOperationException("Unimplemented method 'getRol'");
     }
@@ -42,21 +71,6 @@ public class Usuario {
         throw new UnsupportedOperationException("Unimplemented method 'setRol'");
     }
 
-    public Object getCorreo_usuario() {
-        throw new UnsupportedOperationException("Unimplemented method 'getCorreo_usuario'");
-    }
-
-    public void setCorreo_usuario(Object correo_usuario) {
-        throw new UnsupportedOperationException("Unimplemented method 'setCorreo_usuario'");
-    }
-
-    public Object getNombre_usuario() {
-        throw new UnsupportedOperationException("Unimplemented method 'getNombre_usuario'");
-    }
-
-    public void setNombre_usuario(Object nombre_usuario) {
-        throw new UnsupportedOperationException("Unimplemented method 'setNombre_usuario'");
-    }
 
 
 }
