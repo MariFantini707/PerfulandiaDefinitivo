@@ -1,15 +1,20 @@
-package main.java.Administracion.administracion.Model;
+package Administracion.administracion.Model;
 
-import javax.annotation.processing.Generated;
 import javax.management.relation.Role;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Usuario")
 
 
 public class Usuario {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdUsuario;
@@ -25,7 +30,8 @@ public class Usuario {
     private String CorreoUsuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_rol", nullable = false)
-    private Role rol;
+    @JoinColumn(name = "IdRol", nullable = false)
+    private Role RolUsuario;
+
 
 }
