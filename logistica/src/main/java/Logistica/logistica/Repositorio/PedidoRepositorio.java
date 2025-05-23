@@ -1,5 +1,9 @@
 package Logistica.logistica.Repositorio;
 
-public interface PedidoRepositorio {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import Logistica.logistica.Modelo.Pedido;
+
+public interface PedidoRepositorio extends JpaRepository<Pedido, Integer> {
 
 }

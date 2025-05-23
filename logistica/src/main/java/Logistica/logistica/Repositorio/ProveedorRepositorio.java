@@ -1,5 +1,9 @@
 package Logistica.logistica.Repositorio;
 
-public interface ProveedorRepositorio {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import Logistica.logistica.Modelo.Proveedor;
+
+public interface ProveedorRepositorio extends JpaRepository<Proveedor, Integer>{
 
 }
