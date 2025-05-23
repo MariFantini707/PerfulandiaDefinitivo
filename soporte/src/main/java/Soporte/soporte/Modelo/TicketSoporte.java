@@ -47,6 +47,8 @@ public class TicketSoporte {
     private Integer idUsuario;
 
 
+    //esto no debe estar aqui, hay que modificarlo 
+
     public static List<TicketSoporte> getAllTicketSoportes() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAllTicketSoportes'");

@@ -43,9 +43,6 @@ public class PedidoServicio {
     public void eliminarPedido(Integer id) {
         pedidoRepositorio.deleteById(id);
     }
-
-    //estoy tratando de evitar en lo posible el idUsuario, al final trararé de hacer la conexion entre apis
-
     //prueba1
     public PedidoServicio(PedidoRepositorio pedidoRepositorio, RestTemplate restTemplate) {
         this.pedidoRepositorio = pedidoRepositorio;
