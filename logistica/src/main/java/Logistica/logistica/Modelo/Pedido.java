@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "pedido")
 @Data
@@ -39,6 +41,9 @@ public class Pedido {
     private Proveedor proveedor;
 
     //@ManyToOne pero creo que no se usa cuando es una entidad de otra api 
-    //@JoinColumn(nullable = false, name = idUsuario)
-    //private Integer idUsuario;
+    @Column(nullable = false)
+    @JsonProperty("idUsuario")
+    private Integer idUsuario;
+    // @JsonProperty("idUsuario") es para que el nombre de la propiedad en el JSON sea "idUsuario"
+    //comentario Maria: Para el Usuario que conecta con Pedido (gerente) opté por usar la misma lógica del JSON 
 }
