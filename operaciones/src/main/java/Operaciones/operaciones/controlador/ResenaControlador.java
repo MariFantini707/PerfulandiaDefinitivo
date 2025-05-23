@@ -1,6 +1,7 @@
 package Operaciones.operaciones.controlador;
 
 import Operaciones.operaciones.modelo.Resena;
+import Operaciones.operaciones.modelo.ResenaRespuesta;
 import Operaciones.operaciones.servicio.ResenaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class ResenaControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resena> getResenaById(@PathVariable Integer id) {
-        Optional<Resena> resena = resenaServicio.getResenaById(id);
+    public ResponseEntity<ResenaRespuesta> getResenaById(@PathVariable Integer id) {
+        Optional<ResenaRespuesta> resena = resenaServicio.getResenaById(id);
         return resena.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
