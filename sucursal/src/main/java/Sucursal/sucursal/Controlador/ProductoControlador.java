@@ -41,4 +41,10 @@ public class ProductoControlador {
         productoServicio.deleteProducto(id);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/aumentarStock/{id}/{cantidad}")
+    public ResponseEntity<Producto> aumentarStock(@PathVariable Integer id, @PathVariable Integer cantidad) {
+        Producto producto = productoServicio.aumentarStock(id, cantidad);
+        return ResponseEntity.ok(producto);
+    }
 }

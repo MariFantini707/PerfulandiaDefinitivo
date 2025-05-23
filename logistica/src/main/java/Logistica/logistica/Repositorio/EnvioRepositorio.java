@@ -7,3 +7,5 @@ import Logistica.logistica.Modelo.Envio;
 public interface EnvioRepositorio extends JpaRepository<Envio, Integer> {
 
 }
+
+
