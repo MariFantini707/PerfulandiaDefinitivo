@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LogisticaApplication",
+            "request": "launch",
+            "mainClass": "Logistica.logistica.LogisticaApplication",
+            "projectName": "logistica"
+        },
+        {
+            "type": "java",
             "name": "AdministracionApplication",
             "request": "launch",
             "mainClass": "Administracion.administracion.AdministracionApplication",
