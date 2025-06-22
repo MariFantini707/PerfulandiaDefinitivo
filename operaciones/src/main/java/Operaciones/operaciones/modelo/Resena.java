@@ -1,35 +1,32 @@
 package Operaciones.operaciones.modelo;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.ManyToOne;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "resena")
+@Schema(description = "Entidad que representa una reseña realizada por un usuario sobre un producto o servicio")
 public class Resena {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único de la reseña", example = "501")
     private Integer idResena;
 
-    @Column(name="comentarioResena",nullable = true)
+    @Column(name = "comentarioResena", nullable = true)
+    @Schema(description = "Comentario textual opcional de la reseña", example = "Muy buen servicio, recomendable")
     private String comentarioResena;
-   
-    @Column(name="puntuacionResena",nullable = false)
+
+    @Column(name = "puntuacionResena", nullable = false)
+    @Schema(description = "Puntuación asignada por el usuario, de 1 a 5", example = "4")
     private Integer puntuacionResena;
-    // Si es que supiera como se hace la relacion con el usuario:
-    //@ManyToOne
-    //@JoinColumn(name = "idUsuario", nullable = false)
-    // Y como no sé:
-    @Column(name="idUsuario",nullable = false)
-    //@JsonProperty("idUsuario")
-    // @JsonProperty("idUsuario") es para que el nombre de la propiedad en el JSON sea "idUsuario"
+
+    // Opción sin relación directa
+    @Column(name = "idUsuario", nullable = false)
+    @Schema(description = "ID del usuario que escribió la reseña", example = "7")
     private Integer idUsuario;
+
+
 }

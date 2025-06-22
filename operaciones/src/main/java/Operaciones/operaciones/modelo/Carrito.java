@@ -1,21 +1,21 @@
 package Operaciones.operaciones.modelo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "carrito")
+@Schema(description = "Entidad que representa un carrito de compras")
 public class Carrito {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único del carrito", example = "1001")
     private Integer idCarrito;
 
-    @Column(name="cantidadCarrito",nullable = false)
+    @Column(name = "cantidadCarrito", nullable = false)
+    @Schema(description = "Cantidad total de productos en el carrito", example = "3")
     private Integer cantidadCarrito;
 }
