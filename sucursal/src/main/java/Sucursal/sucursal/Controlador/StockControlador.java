@@ -10,7 +10,7 @@ import Sucursal.sucursal.Modelo.Stock;
 import Sucursal.sucursal.Servicio.StockServicio;
 
 @RestController
-@RequestMapping("/stocks")
+@RequestMapping("/api/v1/stocks")
 public class StockControlador {
     @Autowired
     private StockServicio stockServicio;

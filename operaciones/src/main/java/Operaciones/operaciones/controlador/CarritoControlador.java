@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/carritos")
+@RequestMapping("/api/v1/carritos")
 public class CarritoControlador {
     @Autowired
     private CarritoServicio carritoServicio;

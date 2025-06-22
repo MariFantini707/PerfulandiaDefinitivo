@@ -17,7 +17,7 @@ import Logistica.logistica.Modelo.Envio;
 import Logistica.logistica.Servicio.EnvioServicio;
 
 @RestController
-@RequestMapping("/envios")
+@RequestMapping("/api/v1/envios")
 public class EnvioControlador {
 
     @Autowired
