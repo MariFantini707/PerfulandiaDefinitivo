@@ -10,7 +10,7 @@ import Sucursal.sucursal.Modelo.Producto;
 import Sucursal.sucursal.Servicio.ProductoServicio;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("/api/v1/productos")
 public class ProductoControlador {
     @Autowired
     private ProductoServicio productoServicio;

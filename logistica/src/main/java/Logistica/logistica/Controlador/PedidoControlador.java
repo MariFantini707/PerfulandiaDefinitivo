@@ -18,7 +18,7 @@ import Logistica.logistica.Modelo.ProductoDto;
 import Logistica.logistica.Servicio.PedidoServicio;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/api/v1/pedidos")
 public class PedidoControlador {
 
     @Autowired

@@ -10,7 +10,7 @@ import Sucursal.sucursal.Modelo.Sucursal;
 import Sucursal.sucursal.Servicio.SucursalServicio;
 
 @RestController
-@RequestMapping("/sucursales")
+@RequestMapping("/api/v1/sucursales")
 public class SucursalControlador {
     @Autowired
     private SucursalServicio sucursalServicio;

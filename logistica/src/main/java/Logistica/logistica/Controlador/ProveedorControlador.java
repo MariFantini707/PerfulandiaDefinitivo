@@ -17,7 +17,7 @@ import Logistica.logistica.Modelo.Proveedor;
 import Logistica.logistica.Servicio.ProveedorServicio;
 
 @RestController
-@RequestMapping("/proveedores")
+@RequestMapping("/api/v1/proveedores")
 public class ProveedorControlador {
 
     @Autowired

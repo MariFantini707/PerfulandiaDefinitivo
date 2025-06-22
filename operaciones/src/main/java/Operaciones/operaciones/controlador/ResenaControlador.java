@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/resenas")
+@RequestMapping("/api/v1/resenas")
 public class ResenaControlador {
     @Autowired
     private ResenaServicio resenaServicio;
