@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SoporteApplication<soporte>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "Soporte.soporte.SoporteApplication",
+            "projectName": "soporte",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
