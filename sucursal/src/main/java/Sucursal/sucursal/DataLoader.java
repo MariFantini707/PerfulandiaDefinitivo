@@ -2,6 +2,7 @@ package Sucursal.sucursal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 
 import Sucursal.sucursal.Repositorio.ProductoRepositorio;
 import Sucursal.sucursal.Repositorio.SucursalRepositorio;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
+@Profile("dev")
 public class DataLoader implements CommandLineRunner {
     @Autowired
     private SucursalRepositorio sucursalRepositorio;

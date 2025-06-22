@@ -2,6 +2,7 @@ package Soporte.soporte;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import net.datafaker.Faker;
 import Soporte.soporte.Modelo.TicketSoporte;
@@ -10,6 +11,7 @@ import Soporte.soporte.Repositorio.TicketSoporteRepositorio;
 import java.time.LocalDate;
 
 @Component
+@Profile("dev")
 public class DataLoader implements CommandLineRunner {
     @Autowired
     private TicketSoporteRepositorio ticketSoporteRepositorio;

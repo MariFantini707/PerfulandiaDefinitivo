@@ -2,6 +2,7 @@ package Logistica.logistica;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import net.datafaker.Faker;
 import java.util.Random;
@@ -13,6 +14,7 @@ import Logistica.logistica.Repositorio.PedidoRepositorio;
 import Logistica.logistica.Repositorio.EnvioRepositorio;
 
 @Component
+@Profile("dev")
 public class DataLoader implements CommandLineRunner {
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
