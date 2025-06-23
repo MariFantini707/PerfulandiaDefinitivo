@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "OperacionesApplication",
+            "request": "launch",
+            "mainClass": "Operaciones.operaciones.OperacionesApplication",
+            "projectName": "operaciones"
+        },
+        {
+            "type": "java",
+            "name": "SucursalApplication",
+            "request": "launch",
+            "mainClass": "Sucursal.sucursal.SucursalApplication",
+            "projectName": "sucursal"
+        },
+        {
+            "type": "java",
             "name": "LogisticaApplication",
             "request": "launch",
             "mainClass": "Logistica.logistica.LogisticaApplication",

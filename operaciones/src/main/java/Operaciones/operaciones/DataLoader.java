@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import net.datafaker.Faker;
-import java.util.Random;
+import java.util.List;
 import Operaciones.operaciones.modelo.Carrito;
 import Operaciones.operaciones.modelo.Venta;
 import Operaciones.operaciones.modelo.Resena;
@@ -26,20 +26,19 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Faker faker = new Faker();
-        Random random = new Random();
         // Carritos
         for (int i = 0; i < 10; i++) {
             Carrito carrito = new Carrito();
             carrito.setCantidadCarrito(faker.number().numberBetween(1, 10));
             carritoRepositorio.save(carrito);
         }
-        // Ventas
-        for (int i = 0; i < 10; i++) {
+        List<Carrito> carritos = carritoRepositorio.findAll();
+        for (int i = 0; i < carritos.size(); i++) {
             Venta venta = new Venta();
+            venta.setCarrito(carritos.get(i)); // cada venta con un carrito distinto
             venta.setFechaVenta(java.sql.Date.valueOf(java.time.LocalDate.now().minusDays(faker.number().numberBetween(1, 1000))));
-            venta.setTotalVenta(faker.number().numberBetween(1000, 100000));
-            venta.setCarrito(carritoRepositorio.findAll().get(random.nextInt((int) carritoRepositorio.count())));
             venta.setIdUsuario(faker.number().numberBetween(1, 10));
+            venta.setTotalVenta(faker.number().numberBetween(1000, 100000));
             ventaRepositorio.save(venta);
         }
         // Reseñas

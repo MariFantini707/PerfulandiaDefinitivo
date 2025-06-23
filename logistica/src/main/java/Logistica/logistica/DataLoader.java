@@ -40,6 +40,8 @@ public class DataLoader implements CommandLineRunner {
         for (int i = 0; i < 5; i++) {
             Envio envio = new Envio();
             envio.setEstadoEnvio(faker.commerce().promotionCode());
+            envio.setFechaEnvio(java.time.LocalDate.now().minusDays(faker.number().numberBetween(1, 1000)));
+            envio.setOrigen(faker.address().cityName());
             envioRepositorio.save(envio);
         }
         // Pedidos

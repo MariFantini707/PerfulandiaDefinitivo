@@ -38,15 +38,7 @@ public class DataLoader implements CommandLineRunner {
             sucursalRepositorio.save(sucursal);
         }
 
-        // Generar Stocks
-        for (int i = 0; i < 10; i++) {
-            Stock stock = new Stock();
-            stock.setCantidad(faker.number().numberBetween(1, 100));
-            // idProducto se setea después de crear productos
-            stockRepositorio.save(stock);
-        }
-
-        // Generar Productos
+        // Generar Productos y Stocks correctamente relacionados
         for (int i = 0; i < 10; i++) {
             Producto producto = new Producto();
             producto.setNombreProducto(faker.commerce().productName());
@@ -57,11 +49,18 @@ public class DataLoader implements CommandLineRunner {
             producto.setSucursal(sucursal);
             // Asignar idCarrito aleatorio (dummy)
             producto.setIdCarrito(faker.number().numberBetween(1, 10));
-            // Asignar stock aleatorio
-            Stock stock = stockRepositorio.findAll().get(random.nextInt((int) stockRepositorio.count()));
+
+            // Crear stock para el producto
+            Stock stock = new Stock();
+            stock.setCantidad(faker.number().numberBetween(1, 100));
+            // Guardar stock para obtener idStock
+            stockRepositorio.save(stock);
+
+            // Relacionar producto con stock
             producto.setStock(stock);
             productoRepositorio.save(producto);
-            // Actualizar idProducto en stock
+
+            // Relacionar stock con producto (idProducto)
             stock.setIdProducto(producto.getIdProducto());
             stockRepositorio.save(stock);
         }
