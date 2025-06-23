@@ -12,6 +12,8 @@ import Sucursal.sucursal.Modelo.Sucursal;
 import Sucursal.sucursal.Modelo.Producto;
 import Sucursal.sucursal.Modelo.Stock;
 import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Component
@@ -30,37 +32,36 @@ public class DataLoader implements CommandLineRunner {
         Random random = new Random();
 
         // Generar Sucursales
+        List<Sucursal> sucursales = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Sucursal sucursal = new Sucursal();
             sucursal.setNombreSucursal(faker.company().name());
             sucursal.setDireccionSucursal(faker.address().streetAddress());
             sucursal.setTelefonoSucursal(faker.number().numberBetween(1000000, 9999999));
             sucursalRepositorio.save(sucursal);
+            sucursales.add(sucursal);
         }
 
-        // Generar Productos y Stocks correctamente relacionados
+        // Generar Productos y Stocks correctamente enlazados
         for (int i = 0; i < 10; i++) {
+            // Crear stock primero con idProducto dummy
+            Stock stock = new Stock();
+            stock.setCantidad(faker.number().numberBetween(1, 100));
+            stock.setIdProducto(0); // dummy temporal
+            stockRepositorio.save(stock);
+
+            // Crear producto y enlazar stock
             Producto producto = new Producto();
             producto.setNombreProducto(faker.commerce().productName());
             producto.setPrecioProducto(faker.number().numberBetween(1000, 100000));
             producto.setCategoriaProducto(faker.commerce().department());
-            // Asignar sucursal aleatoria
-            Sucursal sucursal = sucursalRepositorio.findAll().get(random.nextInt((int) sucursalRepositorio.count()));
+            Sucursal sucursal = sucursales.get(random.nextInt(sucursales.size()));
             producto.setSucursal(sucursal);
-            // Asignar idCarrito aleatorio (dummy)
             producto.setIdCarrito(faker.number().numberBetween(1, 10));
-
-            // Crear stock para el producto
-            Stock stock = new Stock();
-            stock.setCantidad(faker.number().numberBetween(1, 100));
-            // Guardar stock para obtener idStock
-            stockRepositorio.save(stock);
-
-            // Relacionar producto con stock
             producto.setStock(stock);
             productoRepositorio.save(producto);
 
-            // Relacionar stock con producto (idProducto)
+            // Actualizar stock con idProducto real
             stock.setIdProducto(producto.getIdProducto());
             stockRepositorio.save(stock);
         }
