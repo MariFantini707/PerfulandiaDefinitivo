@@ -69,7 +69,6 @@ class UsuarioControladorTest {
                 .content(jsonCreate))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        System.out.println("POST response PUT: " + response);
         JsonNode node = objectMapper.readTree(response);
         String id = node.has("idUsuario") ? node.get("idUsuario").asText() : "1";
         String json = "{\"nombreUsuario\":\"TestEdit\",\"rutUsuario\":\"3-3\",\"correoUsuario\":\"edit@test.com\",\"rolUsuario\":\"admin\"}";

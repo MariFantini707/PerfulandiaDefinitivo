@@ -10,12 +10,26 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.BeforeEach;
+import Logistica.logistica.Modelo.Proveedor;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class ProveedorControladorTest {
     @Autowired
     private MockMvc mockMvc;
+
+    private Proveedor proveedor;
+
+    @BeforeEach
+    void setUp() {
+        proveedor = new Proveedor();
+        proveedor.setIdProveedor(1);
+        proveedor.setNombreProveedor("Proveedor Test");
+        proveedor.setTelefonoProveedor(1234567);
+        proveedor.setCorreoProveedor("proveedor@test.com");
+        proveedor.setDireccionProveedor("Calle Falsa 123");
+    }
 
     @Test
     void testGetProveedores() throws Exception {
