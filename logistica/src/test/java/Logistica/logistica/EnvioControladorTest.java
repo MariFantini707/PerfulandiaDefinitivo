@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import Logistica.logistica.Modelo.Envio;
 import Logistica.logistica.Servicio.EnvioServicio;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import java.time.LocalDate;
 import static org.mockito.ArgumentMatchers.any;
