@@ -40,8 +40,8 @@ class TicketSoporteControladorTest {
             .andExpect(status().isOk());
     }
     @Test
-    void testDeleteTicket() throws Exception {
+    void testDeleteTicketSoporte() throws Exception {
         mockMvc.perform(delete("/api/v1/tickets/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isNoContent()); // 204
     }
 }

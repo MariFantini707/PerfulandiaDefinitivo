@@ -45,6 +45,7 @@ public class ProductoControlador {
             )
         )
     })
+
     @GetMapping("/{id}")
     public ResponseEntity<Producto> getProductoById(@PathVariable Integer id) {
         Optional<Producto> producto = productoServicio.getProductoById(id);
@@ -74,6 +75,7 @@ public class ProductoControlador {
             )
         )
     })
+    
     @PutMapping("/{id}")
     public ResponseEntity<Producto> updateProducto(@PathVariable Integer id, @RequestBody Producto producto) {
         return ResponseEntity.ok(productoServicio.updateProducto(id, producto));

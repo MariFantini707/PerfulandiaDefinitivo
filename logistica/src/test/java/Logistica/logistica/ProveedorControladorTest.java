@@ -42,6 +42,6 @@ class ProveedorControladorTest {
     @Test
     void testDeleteProveedor() throws Exception {
         mockMvc.perform(delete("/api/v1/proveedores/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isNoContent()); // 204
     }
 }

@@ -42,6 +42,6 @@ class StockControladorTest {
     @Test
     void testDeleteStock() throws Exception {
         mockMvc.perform(delete("/api/v1/stocks/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isNoContent()); // 204
     }
 }

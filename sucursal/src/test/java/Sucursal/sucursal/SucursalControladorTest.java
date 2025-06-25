@@ -42,6 +42,6 @@ class SucursalControladorTest {
     @Test
     void testDeleteSucursal() throws Exception {
         mockMvc.perform(delete("/api/v1/sucursales/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isNoContent()); // 204
     }
 }

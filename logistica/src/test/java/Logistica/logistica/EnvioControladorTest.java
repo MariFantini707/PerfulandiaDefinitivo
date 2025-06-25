@@ -41,7 +41,21 @@ class EnvioControladorTest {
     }
     @Test
     void testDeleteEnvio() throws Exception {
-        mockMvc.perform(delete("/api/v1/envios/1"))
-            .andExpect(status().isOk());
+        // Crea un envío primero
+        String json = "{\"fechaEnvio\":\"2025-06-21\",\"estadoEnvio\":\"Pendiente\",\"origen\":\"Santiago\"}";
+        String response = mockMvc.perform(post("/api/v1/envios")
+                .contentType("application/json")
+                .content(json))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        // Extrae el ID del envío creado (ajusta el campo según tu modelo, por ejemplo 'idEnvio')
+        // Usa Jackson si es JSON: 
+        com.fasterxml.jackson.databind.JsonNode node = new com.fasterxml.jackson.databind.ObjectMapper().readTree(response);
+        String id = node.has("idEnvio") ? node.get("idEnvio").asText() : "1";
+
+        // Ahora sí, elimina el envío recién creado
+        mockMvc.perform(delete("/api/v1/envios/" + id))
+            .andExpect(status().isNoContent()); // 204
     }
 }

@@ -42,7 +42,7 @@ class ProductoControladorTest {
     @Test
     void testDeleteProducto() throws Exception {
         mockMvc.perform(delete("/api/v1/productos/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isNoContent()); // 204
     }
     @Test
     void testAumentarStock() throws Exception {
