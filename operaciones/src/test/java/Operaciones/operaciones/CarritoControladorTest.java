@@ -84,6 +84,7 @@ class CarritoControladorTest {
 
     @Test
     void testDeleteCarrito() throws Exception {
+        when(carritoServicio.getCarritosById(1)).thenReturn(java.util.Optional.of(carrito));
         doNothing().when(carritoServicio).deleteCarritos(1);
         mockMvc.perform(delete("/api/v1/carritos/1"))
             .andExpect(status().isOk());

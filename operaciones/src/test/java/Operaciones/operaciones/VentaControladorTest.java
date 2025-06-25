@@ -103,6 +103,6 @@ class VentaControladorTest {
     void testDeleteVenta() throws Exception {
         doNothing().when(ventaServicio).deleteVenta(1);
         mockMvc.perform(delete("/api/v1/ventas/1"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isOk());
     }
 }

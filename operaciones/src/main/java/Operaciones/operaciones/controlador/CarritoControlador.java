@@ -56,13 +56,9 @@ public class CarritoControlador {
         )
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Carrito>> getCarritoById(@RequestParam Integer id) {
+    public ResponseEntity<Carrito> getCarritoById(@PathVariable Integer id) {
         Optional<Carrito> carrito = carritoServicio.getCarritosById(id);
-        if (carrito != null) {
-            return ResponseEntity.ok(carrito);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return carrito.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Crear un nuevo carrito", description = "Registra un nuevo carrito de compras en el sistema")
@@ -75,9 +71,9 @@ public class CarritoControlador {
         )
     })
     @PostMapping
-    public ResponseEntity<String> createCarrito(@RequestBody Carrito entity) {
-        carritoServicio.createCarrito(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Carrito creado con éxito");
+    public ResponseEntity<Carrito> createCarrito(@RequestBody Carrito entity) {
+        Carrito creado = carritoServicio.createCarrito(entity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
     @Operation(summary = "Actualizar un carrito", description = "Actualiza los datos de un carrito existente")
@@ -90,9 +86,9 @@ public class CarritoControlador {
         )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCarritos(@PathVariable Integer id, @RequestBody Carrito carrito) {
+    public ResponseEntity<Carrito> updateCarritos(@PathVariable Integer id, @RequestBody Carrito carrito) {
         Carrito carritoActualizar = carritoServicio.updateCarritos(id, carrito);
-        return ResponseEntity.ok().body(carritoActualizar.toString());
+        return ResponseEntity.ok().body(carritoActualizar);
     }
 
     @Operation(summary = "Eliminar un carrito", description = "Elimina un carrito por su ID")
@@ -105,7 +101,7 @@ public class CarritoControlador {
         )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteVentas(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteCarritos(@PathVariable Integer id) {
         Optional<Carrito> carrito = carritoServicio.getCarritosById(id);
         if (carrito.isEmpty()) {
             return ResponseEntity.notFound().build();

@@ -49,6 +49,7 @@ class EnvioControladorTest {
     }
     @Test
     void testGetEnvioById() throws Exception {
+        when(envioServicio.obtenerEnvioPorId(1)).thenReturn(java.util.Optional.of(envio));
         mockMvc.perform(get("/api/v1/envios/1"))
             .andExpect(status().isOk());
     }
@@ -71,6 +72,7 @@ class EnvioControladorTest {
     }
     @Test
     void testDeleteEnvio() throws Exception {
+        when(envioServicio.obtenerEnvioPorId(1)).thenReturn(java.util.Optional.of(envio));
         mockMvc.perform(delete("/api/v1/envios/1"))
             .andExpect(status().isNoContent()); // 204
     }

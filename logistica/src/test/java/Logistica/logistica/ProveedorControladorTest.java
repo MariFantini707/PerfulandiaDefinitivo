@@ -84,7 +84,7 @@ class ProveedorControladorTest {
     @Test
     void testPutProveedor() throws Exception {
         when(proveedorServicio.obtenerProveedorPorId(1)).thenReturn(java.util.Optional.of(proveedor));
-        when(proveedorServicio.guardarProveedor(any(Proveedor.class))).thenReturn(proveedor);
+        when(proveedorServicio.actualizarProveedor(any(Proveedor.class))).thenReturn(proveedor);
         mockMvc.perform(put("/api/v1/proveedores/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(proveedor)))
@@ -97,6 +97,7 @@ class ProveedorControladorTest {
     }
     @Test
     void testDeleteProveedor() throws Exception {
+        when(proveedorServicio.obtenerProveedorPorId(1)).thenReturn(java.util.Optional.of(proveedor));
         doNothing().when(proveedorServicio).eliminarProveedor(1);
         mockMvc.perform(delete("/api/v1/proveedores/1"))
             .andExpect(status().isNoContent());

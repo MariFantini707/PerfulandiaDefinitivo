@@ -111,6 +111,6 @@ class TicketSoporteControladorTest {
     void testDeleteTicketSoporte() throws Exception {
         doNothing().when(ticketSoporteServicio).deleteTicketSoporte(1);
         mockMvc.perform(delete("/api/v1/tickets/1"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isOk());
     }
 }

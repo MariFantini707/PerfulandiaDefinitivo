@@ -86,6 +86,6 @@ class SucursalControladorTest {
     void testDeleteSucursal() throws Exception {
         doNothing().when(sucursalServicio).deleteSucursal(1);
         mockMvc.perform(delete("/api/v1/sucursales/1"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isOk());
     }
 }

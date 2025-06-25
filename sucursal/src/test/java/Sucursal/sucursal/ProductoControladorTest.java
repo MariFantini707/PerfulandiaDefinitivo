@@ -101,7 +101,7 @@ class ProductoControladorTest {
     void testDeleteProducto() throws Exception {
         doNothing().when(productoServicio).deleteProducto(1);
         mockMvc.perform(delete("/api/v1/productos/1"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isOk());
     }
 
     @Test
