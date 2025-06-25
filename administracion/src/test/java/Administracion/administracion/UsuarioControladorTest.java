@@ -40,7 +40,7 @@ class UsuarioControladorTest {
         usuario = new Usuario();
         usuario.setIdUsuario(1);
         usuario.setNombreUsuario("Test");
-        usuario.setRutUsuario("1-9");
+        usuario.setRutUsuario("12345678-9");
         usuario.setCorreoUsuario("test@test.com");
         usuario.setRolUsuario("admin");
     }
