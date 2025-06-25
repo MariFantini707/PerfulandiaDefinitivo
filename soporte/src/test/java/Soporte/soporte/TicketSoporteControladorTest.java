@@ -5,17 +5,47 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.BeforeEach;
+import Soporte.soporte.Modelo.TicketSoporte;
+import java.time.LocalDate;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import Soporte.soporte.Servicio.TicketSoporteServicio;
+import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class TicketSoporteControladorTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockitoBean
+    private TicketSoporteServicio ticketSoporteServicio;
+
+    private TicketSoporte ticket;
+
+    @BeforeEach
+    void setUp() {
+        ticket = new TicketSoporte();
+        ticket.setIdTicket(1);
+        ticket.setDescripcionTicket("No puedo ingresar al sistema");
+        ticket.setEstadoTicket("Abierto");
+        ticket.setFechaInicioTicket(LocalDate.of(2024, 1, 1));
+        ticket.setFechaTerminoTicket(LocalDate.of(2024, 1, 2));
+        ticket.setRespuestaTicket("Respuesta de prueba");
+        ticket.setIdUsuario(1);
+    }
 
     @Test
     void testGetTickets() throws Exception {
@@ -29,14 +59,19 @@ class TicketSoporteControladorTest {
     }
     @Test
     void testPostTicket() throws Exception {
-        String json = "{\"descripcionTicket\":\"Test\",\"estadoTicket\":\"Abierto\",\"fechaInicioTicket\":\"2024-01-01\",\"fechaTerminoTicket\":\"2024-01-02\",\"respuestaTicket\":\"Respuesta\",\"idUsuario\":1}";
-        mockMvc.perform(post("/api/v1/tickets").contentType("application/json").content(json))
+        when(ticketSoporteServicio.createTicketSoporte(any(TicketSoporte.class))).thenReturn(ticket);
+        mockMvc.perform(post("/api/v1/tickets")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ticket)))
             .andExpect(status().isOk());
     }
     @Test
     void testPutTicket() throws Exception {
-        String json = "{\"descripcionTicket\":\"Test2\",\"estadoTicket\":\"Cerrado\",\"fechaInicioTicket\":\"2024-01-03\",\"fechaTerminoTicket\":\"2024-01-04\",\"respuestaTicket\":\"Respuesta2\",\"idUsuario\":2}";
-        mockMvc.perform(put("/api/v1/tickets/1").contentType("application/json").content(json))
+        when(ticketSoporteServicio.getTicketSoporteById(1)).thenReturn(java.util.Optional.of(ticket));
+        when(ticketSoporteServicio.updateTicketSoporte(eq(1), any(TicketSoporte.class))).thenReturn(ticket);
+        mockMvc.perform(put("/api/v1/tickets/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ticket)))
             .andExpect(status().isOk());
     }
     @Test

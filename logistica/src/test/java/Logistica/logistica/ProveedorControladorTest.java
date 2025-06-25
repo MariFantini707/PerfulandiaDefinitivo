@@ -12,6 +12,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.BeforeEach;
 import Logistica.logistica.Modelo.Proveedor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import Logistica.logistica.Servicio.ProveedorServicio;
+import org.springframework.http.MediaType;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -20,6 +26,12 @@ class ProveedorControladorTest {
     private MockMvc mockMvc;
 
     private Proveedor proveedor;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockitoBean
+    private ProveedorServicio proveedorServicio;
 
     @BeforeEach
     void setUp() {
@@ -43,14 +55,19 @@ class ProveedorControladorTest {
     }
     @Test
     void testPostProveedor() throws Exception {
-        String json = "{\"nombreProveedor\":\"Test\",\"telefonoProveedor\":1234567,\"correoProveedor\":\"test@test.com\",\"direccionProveedor\":\"Calle 123\"}";
-        mockMvc.perform(post("/api/v1/proveedores").contentType("application/json").content(json))
+        when(proveedorServicio.guardarProveedor(any(Proveedor.class))).thenReturn(proveedor);
+        mockMvc.perform(post("/api/v1/proveedores")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(proveedor)))
             .andExpect(status().isOk());
     }
     @Test
     void testPutProveedor() throws Exception {
-        String json = "{\"nombreProveedor\":\"Test2\",\"telefonoProveedor\":7654321,\"correoProveedor\":\"test2@test.com\",\"direccionProveedor\":\"Calle 456\"}";
-        mockMvc.perform(put("/api/v1/proveedores/1").contentType("application/json").content(json))
+        when(proveedorServicio.obtenerProveedorPorId(1)).thenReturn(java.util.Optional.of(proveedor));
+        when(proveedorServicio.guardarProveedor(any(Proveedor.class))).thenReturn(proveedor);
+        mockMvc.perform(put("/api/v1/proveedores/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(proveedor)))
             .andExpect(status().isOk());
     }
     @Test

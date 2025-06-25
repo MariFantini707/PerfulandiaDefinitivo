@@ -10,12 +10,24 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.BeforeEach;
+import Sucursal.sucursal.Modelo.Stock;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class StockControladorTest {
     @Autowired
     private MockMvc mockMvc;
+
+    private Stock stock;
+
+    @BeforeEach
+    void setUp() {
+        stock = new Stock();
+        stock.setIdStock(1);
+        stock.setCantidad(50);
+        stock.setIdProducto(1);
+    }
 
     @Test
     void testGetStocks() throws Exception {

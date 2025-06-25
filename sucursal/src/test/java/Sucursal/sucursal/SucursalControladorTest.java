@@ -10,12 +10,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.BeforeEach;
+import Sucursal.sucursal.Modelo.Sucursal;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class SucursalControladorTest {
     @Autowired
     private MockMvc mockMvc;
+
+    private Sucursal sucursal;
+
+    @BeforeEach
+    void setUp() {
+        sucursal = new Sucursal();
+        sucursal.setIdSucursal(1);
+        sucursal.setNombreSucursal("Sucursal Plaza Oeste");
+        sucursal.setDireccionSucursal("Av. Central 1234, Maipú, Santiago");
+        sucursal.setTelefonoSucursal(227654321);
+    }
 
     @Test
     void testGetSucursales() throws Exception {

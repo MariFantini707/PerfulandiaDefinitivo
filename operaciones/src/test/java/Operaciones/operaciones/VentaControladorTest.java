@@ -10,12 +10,46 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.BeforeEach;
+import Operaciones.operaciones.modelo.Venta;
+import Operaciones.operaciones.modelo.Carrito;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import Operaciones.operaciones.servicio.VentaServicio;
+import org.springframework.http.MediaType;
+
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class VentaControladorTest {
     @Autowired
     private MockMvc mockMvc;
+    
+    private Venta venta;
+    private Carrito carrito;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockitoBean
+    private VentaServicio ventaServicio;
+
+    @BeforeEach
+    void setUp() {
+        carrito = new Carrito();
+        carrito.setIdCarrito(1);
+        carrito.setCantidadCarrito(3);
+
+        venta = new Venta();
+        venta.setIdVenta(1);
+        venta.setFechaVenta(java.sql.Date.valueOf("2024-01-01"));
+        venta.setTotalVenta(1000);
+        venta.setCarrito(carrito);
+        venta.setIdUsuario(1);
+    }
 
     @Test
     void testGetVentas() throws Exception {
@@ -29,14 +63,19 @@ class VentaControladorTest {
     }
     @Test
     void testPostVenta() throws Exception {
-        String json = "{\"fechaVenta\":\"2024-01-01\",\"totalVenta\":1000,\"carrito\":null,\"idUsuario\":1}";
-        mockMvc.perform(post("/api/v1/ventas").contentType("application/json").content(json))
+        when(ventaServicio.createVenta(any(Venta.class))).thenReturn(venta);
+        mockMvc.perform(post("/api/v1/ventas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(venta)))
             .andExpect(status().isOk());
     }
     @Test
     void testPutVenta() throws Exception {
-        String json = "{\"fechaVenta\":\"2024-01-02\",\"totalVenta\":2000,\"carrito\":null,\"idUsuario\":2}";
-        mockMvc.perform(put("/api/v1/ventas/1").contentType("application/json").content(json))
+        when(ventaServicio.getVentaById(1)).thenReturn(java.util.Optional.of(venta));
+        when(ventaServicio.updateVenta(eq(1), any(Venta.class))).thenReturn(venta);
+        mockMvc.perform(put("/api/v1/ventas/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(venta)))
             .andExpect(status().isOk());
     }
     @Test
