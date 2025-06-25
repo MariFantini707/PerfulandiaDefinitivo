@@ -18,6 +18,9 @@ import Logistica.logistica.Servicio.ProveedorServicio;
 import org.springframework.http.MediaType;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.mockito.Mockito.doNothing;
+import java.util.Collections;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -45,13 +48,25 @@ class ProveedorControladorTest {
 
     @Test
     void testGetProveedores() throws Exception {
+        when(proveedorServicio.listarProveedores()).thenReturn(Collections.singletonList(proveedor));
         mockMvc.perform(get("/api/v1/proveedores"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].idProveedor").value(proveedor.getIdProveedor()))
+            .andExpect(jsonPath("$[0].nombreProveedor").value(proveedor.getNombreProveedor()))
+            .andExpect(jsonPath("$[0].telefonoProveedor").value(proveedor.getTelefonoProveedor()))
+            .andExpect(jsonPath("$[0].correoProveedor").value(proveedor.getCorreoProveedor()))
+            .andExpect(jsonPath("$[0].direccionProveedor").value(proveedor.getDireccionProveedor()));
     }
     @Test
     void testGetProveedorById() throws Exception {
+        when(proveedorServicio.obtenerProveedorPorId(1)).thenReturn(java.util.Optional.of(proveedor));
         mockMvc.perform(get("/api/v1/proveedores/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idProveedor").value(proveedor.getIdProveedor()))
+            .andExpect(jsonPath("$.nombreProveedor").value(proveedor.getNombreProveedor()))
+            .andExpect(jsonPath("$.telefonoProveedor").value(proveedor.getTelefonoProveedor()))
+            .andExpect(jsonPath("$.correoProveedor").value(proveedor.getCorreoProveedor()))
+            .andExpect(jsonPath("$.direccionProveedor").value(proveedor.getDireccionProveedor()));
     }
     @Test
     void testPostProveedor() throws Exception {
@@ -59,7 +74,12 @@ class ProveedorControladorTest {
         mockMvc.perform(post("/api/v1/proveedores")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(proveedor)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idProveedor").value(proveedor.getIdProveedor()))
+            .andExpect(jsonPath("$.nombreProveedor").value(proveedor.getNombreProveedor()))
+            .andExpect(jsonPath("$.telefonoProveedor").value(proveedor.getTelefonoProveedor()))
+            .andExpect(jsonPath("$.correoProveedor").value(proveedor.getCorreoProveedor()))
+            .andExpect(jsonPath("$.direccionProveedor").value(proveedor.getDireccionProveedor()));
     }
     @Test
     void testPutProveedor() throws Exception {
@@ -68,11 +88,17 @@ class ProveedorControladorTest {
         mockMvc.perform(put("/api/v1/proveedores/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(proveedor)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idProveedor").value(proveedor.getIdProveedor()))
+            .andExpect(jsonPath("$.nombreProveedor").value(proveedor.getNombreProveedor()))
+            .andExpect(jsonPath("$.telefonoProveedor").value(proveedor.getTelefonoProveedor()))
+            .andExpect(jsonPath("$.correoProveedor").value(proveedor.getCorreoProveedor()))
+            .andExpect(jsonPath("$.direccionProveedor").value(proveedor.getDireccionProveedor()));
     }
     @Test
     void testDeleteProveedor() throws Exception {
+        doNothing().when(proveedorServicio).eliminarProveedor(1);
         mockMvc.perform(delete("/api/v1/proveedores/1"))
-            .andExpect(status().isNoContent()); // 204
+            .andExpect(status().isNoContent());
     }
 }

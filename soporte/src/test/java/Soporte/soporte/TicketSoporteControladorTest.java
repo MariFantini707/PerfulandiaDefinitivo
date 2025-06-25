@@ -17,9 +17,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import java.util.Collections;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -49,13 +52,29 @@ class TicketSoporteControladorTest {
 
     @Test
     void testGetTickets() throws Exception {
+        when(ticketSoporteServicio.getAllTicketSoportes()).thenReturn(Collections.singletonList(ticket));
         mockMvc.perform(get("/api/v1/tickets"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].idTicket").value(ticket.getIdTicket()))
+            .andExpect(jsonPath("$[0].descripcionTicket").value(ticket.getDescripcionTicket()))
+            .andExpect(jsonPath("$[0].estadoTicket").value(ticket.getEstadoTicket()))
+            .andExpect(jsonPath("$[0].fechaInicioTicket").value(ticket.getFechaInicioTicket().toString()))
+            .andExpect(jsonPath("$[0].fechaTerminoTicket").value(ticket.getFechaTerminoTicket().toString()))
+            .andExpect(jsonPath("$[0].respuestaTicket").value(ticket.getRespuestaTicket()))
+            .andExpect(jsonPath("$[0].idUsuario").value(ticket.getIdUsuario()));
     }
     @Test
     void testGetTicketById() throws Exception {
+        when(ticketSoporteServicio.getTicketSoporteById(1)).thenReturn(java.util.Optional.of(ticket));
         mockMvc.perform(get("/api/v1/tickets/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idTicket").value(ticket.getIdTicket()))
+            .andExpect(jsonPath("$.descripcionTicket").value(ticket.getDescripcionTicket()))
+            .andExpect(jsonPath("$.estadoTicket").value(ticket.getEstadoTicket()))
+            .andExpect(jsonPath("$.fechaInicioTicket").value(ticket.getFechaInicioTicket().toString()))
+            .andExpect(jsonPath("$.fechaTerminoTicket").value(ticket.getFechaTerminoTicket().toString()))
+            .andExpect(jsonPath("$.respuestaTicket").value(ticket.getRespuestaTicket()))
+            .andExpect(jsonPath("$.idUsuario").value(ticket.getIdUsuario()));
     }
     @Test
     void testPostTicket() throws Exception {
@@ -63,7 +82,14 @@ class TicketSoporteControladorTest {
         mockMvc.perform(post("/api/v1/tickets")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ticket)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idTicket").value(ticket.getIdTicket()))
+            .andExpect(jsonPath("$.descripcionTicket").value(ticket.getDescripcionTicket()))
+            .andExpect(jsonPath("$.estadoTicket").value(ticket.getEstadoTicket()))
+            .andExpect(jsonPath("$.fechaInicioTicket").value(ticket.getFechaInicioTicket().toString()))
+            .andExpect(jsonPath("$.fechaTerminoTicket").value(ticket.getFechaTerminoTicket().toString()))
+            .andExpect(jsonPath("$.respuestaTicket").value(ticket.getRespuestaTicket()))
+            .andExpect(jsonPath("$.idUsuario").value(ticket.getIdUsuario()));
     }
     @Test
     void testPutTicket() throws Exception {
@@ -72,11 +98,19 @@ class TicketSoporteControladorTest {
         mockMvc.perform(put("/api/v1/tickets/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(ticket)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idTicket").value(ticket.getIdTicket()))
+            .andExpect(jsonPath("$.descripcionTicket").value(ticket.getDescripcionTicket()))
+            .andExpect(jsonPath("$.estadoTicket").value(ticket.getEstadoTicket()))
+            .andExpect(jsonPath("$.fechaInicioTicket").value(ticket.getFechaInicioTicket().toString()))
+            .andExpect(jsonPath("$.fechaTerminoTicket").value(ticket.getFechaTerminoTicket().toString()))
+            .andExpect(jsonPath("$.respuestaTicket").value(ticket.getRespuestaTicket()))
+            .andExpect(jsonPath("$.idUsuario").value(ticket.getIdUsuario()));
     }
     @Test
     void testDeleteTicketSoporte() throws Exception {
+        doNothing().when(ticketSoporteServicio).deleteTicketSoporte(1);
         mockMvc.perform(delete("/api/v1/tickets/1"))
-            .andExpect(status().isNoContent()); // 204
+            .andExpect(status().isNoContent());
     }
 }

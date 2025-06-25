@@ -62,7 +62,10 @@ public class PedidoControladorTest {
         mockMvc.perform(get("/api/v1/pedidos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idPedido").value(1))
-                .andExpect(jsonPath("$[0].estadoPedido").value("Pendiente"));
+                .andExpect(jsonPath("$[0].estadoPedido").value("Pendiente"))
+                .andExpect(jsonPath("$[0].cantidadPedido").value(3))
+                .andExpect(jsonPath("$[0].idUsuario").value(4))
+                .andExpect(jsonPath("$[0].idProducto").value(7));
     }
 
     @Test
@@ -72,7 +75,10 @@ public class PedidoControladorTest {
         mockMvc.perform(get("/api/v1/pedidos/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.idPedido").value(1))
-                .andExpect(jsonPath("$.estadoPedido").value("Pendiente"));
+                .andExpect(jsonPath("$.estadoPedido").value("Pendiente"))
+                .andExpect(jsonPath("$.cantidadPedido").value(3))
+                .andExpect(jsonPath("$.idUsuario").value(4))
+                .andExpect(jsonPath("$.idProducto").value(7));
     }
 
     @Test
@@ -84,7 +90,10 @@ public class PedidoControladorTest {
                         .content(objectMapper.writeValueAsString(pedido)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.idPedido").value(1))
-                .andExpect(jsonPath("$.estadoPedido").value("Pendiente"));
+                .andExpect(jsonPath("$.estadoPedido").value("Pendiente"))
+                .andExpect(jsonPath("$.cantidadPedido").value(3))
+                .andExpect(jsonPath("$.idUsuario").value(4))
+                .andExpect(jsonPath("$.idProducto").value(7));
     }
 
     @Test
@@ -97,7 +106,10 @@ public class PedidoControladorTest {
                         .content(objectMapper.writeValueAsString(pedido)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.idPedido").value(1))
-                .andExpect(jsonPath("$.estadoPedido").value("Pendiente"));
+                .andExpect(jsonPath("$.estadoPedido").value("Pendiente"))
+                .andExpect(jsonPath("$.cantidadPedido").value(3))
+                .andExpect(jsonPath("$.idUsuario").value(4))
+                .andExpect(jsonPath("$.idProducto").value(7));
     }
 
 

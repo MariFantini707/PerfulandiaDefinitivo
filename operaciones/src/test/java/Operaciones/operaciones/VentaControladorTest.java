@@ -19,6 +19,9 @@ import Operaciones.operaciones.servicio.VentaServicio;
 import org.springframework.http.MediaType;
 
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import java.util.Collections;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -53,13 +56,23 @@ class VentaControladorTest {
 
     @Test
     void testGetVentas() throws Exception {
+        when(ventaServicio.getAllVentas()).thenReturn(Collections.singletonList(venta));
         mockMvc.perform(get("/api/v1/ventas"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].idVenta").value(venta.getIdVenta()))
+            .andExpect(jsonPath("$[0].fechaVenta").value(venta.getFechaVenta().toString()))
+            .andExpect(jsonPath("$[0].totalVenta").value(venta.getTotalVenta()))
+            .andExpect(jsonPath("$[0].idUsuario").value(venta.getIdUsuario()));
     }
     @Test
     void testGetVentaById() throws Exception {
+        when(ventaServicio.getVentaById(1)).thenReturn(java.util.Optional.of(venta));
         mockMvc.perform(get("/api/v1/ventas/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idVenta").value(venta.getIdVenta()))
+            .andExpect(jsonPath("$.fechaVenta").value(venta.getFechaVenta().toString()))
+            .andExpect(jsonPath("$.totalVenta").value(venta.getTotalVenta()))
+            .andExpect(jsonPath("$.idUsuario").value(venta.getIdUsuario()));
     }
     @Test
     void testPostVenta() throws Exception {
@@ -67,7 +80,11 @@ class VentaControladorTest {
         mockMvc.perform(post("/api/v1/ventas")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(venta)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idVenta").value(venta.getIdVenta()))
+            .andExpect(jsonPath("$.fechaVenta").value(venta.getFechaVenta().toString()))
+            .andExpect(jsonPath("$.totalVenta").value(venta.getTotalVenta()))
+            .andExpect(jsonPath("$.idUsuario").value(venta.getIdUsuario()));
     }
     @Test
     void testPutVenta() throws Exception {
@@ -76,11 +93,16 @@ class VentaControladorTest {
         mockMvc.perform(put("/api/v1/ventas/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(venta)))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idVenta").value(venta.getIdVenta()))
+            .andExpect(jsonPath("$.fechaVenta").value(venta.getFechaVenta().toString()))
+            .andExpect(jsonPath("$.totalVenta").value(venta.getTotalVenta()))
+            .andExpect(jsonPath("$.idUsuario").value(venta.getIdUsuario()));
     }
     @Test
     void testDeleteVenta() throws Exception {
+        doNothing().when(ventaServicio).deleteVenta(1);
         mockMvc.perform(delete("/api/v1/ventas/1"))
-            .andExpect(status().isNoContent()); // 204
+            .andExpect(status().isNoContent());
     }
 }

@@ -12,6 +12,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.BeforeEach;
 import Sucursal.sucursal.Modelo.Stock;
+import Sucursal.sucursal.Servicio.StockServicio;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import java.util.Collections;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -20,6 +26,10 @@ class StockControladorTest {
     private MockMvc mockMvc;
 
     private Stock stock;
+
+    @MockitoBean
+    private StockServicio stockServicio;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
@@ -31,29 +41,46 @@ class StockControladorTest {
 
     @Test
     void testGetStocks() throws Exception {
+        when(stockServicio.getAllStocks()).thenReturn(Collections.singletonList(stock));
         mockMvc.perform(get("/api/v1/stocks"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].idStock").value(stock.getIdStock()))
+            .andExpect(jsonPath("$[0].cantidad").value(stock.getCantidad()))
+            .andExpect(jsonPath("$[0].idProducto").value(stock.getIdProducto()));
     }
     @Test
     void testGetStockById() throws Exception {
+        when(stockServicio.getStockById(1)).thenReturn(java.util.Optional.of(stock));
         mockMvc.perform(get("/api/v1/stocks/1"))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idStock").value(stock.getIdStock()))
+            .andExpect(jsonPath("$.cantidad").value(stock.getCantidad()))
+            .andExpect(jsonPath("$.idProducto").value(stock.getIdProducto()));
     }
     @Test
     void testPostStock() throws Exception {
-        String json = "{\"cantidad\":50,\"idProducto\":1}";
+        when(stockServicio.createStock(any(Stock.class))).thenReturn(stock);
+        String json = objectMapper.writeValueAsString(stock);
         mockMvc.perform(post("/api/v1/stocks").contentType("application/json").content(json))
-            .andExpect(status().isCreated());
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.idStock").value(stock.getIdStock()))
+            .andExpect(jsonPath("$.cantidad").value(stock.getCantidad()))
+            .andExpect(jsonPath("$.idProducto").value(stock.getIdProducto()));
     }
     @Test
     void testPutStock() throws Exception {
-        String json = "{\"cantidad\":100,\"idProducto\":1}";
+        when(stockServicio.updateStock(eq(1), any(Stock.class))).thenReturn(stock);
+        String json = objectMapper.writeValueAsString(stock);
         mockMvc.perform(put("/api/v1/stocks/1").contentType("application/json").content(json))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idStock").value(stock.getIdStock()))
+            .andExpect(jsonPath("$.cantidad").value(stock.getCantidad()))
+            .andExpect(jsonPath("$.idProducto").value(stock.getIdProducto()));
     }
     @Test
     void testDeleteStock() throws Exception {
+        doNothing().when(stockServicio).deleteStock(1);
         mockMvc.perform(delete("/api/v1/stocks/1"))
-            .andExpect(status().isNoContent()); // 204
+            .andExpect(status().isNoContent());
     }
 }
